@@ -57,6 +57,7 @@ def draw_hexagon(x, y, side_len, color):
 
 
 turtle_area()
+count=get_num_hexagons()
 draw_hexagon(0,400,50,'red')
 
 t.mainloop()
