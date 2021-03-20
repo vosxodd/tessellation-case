@@ -4,6 +4,22 @@
 #               Labuzov A. (%)
 import turtle as t
 from math import sqrt
+def get_num_hexagons():
+    """
+    функция для ввода количества шестиугольников, предусматривающая проверку ввода данных.
+    """
+    a=0
+    n=input("Пожалуйста, введите количество шестиугольников, располагаемых в ряд: ")
+    while a==0:
+        try:
+            n=int(n)
+            if n>3 and n<21:
+                return n
+                break
+            else:
+                n=input("Оно должно быть от 4 до 20. Пожалуйста, повторите попытку: ")
+        except ValueError:
+            n=input("Оно должно быть от 4 до 20. Пожалуйста, повторите попытку: ")
 
 def turtle_area():
     t.pensize(3)
