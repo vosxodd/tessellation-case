@@ -44,21 +44,28 @@ def get_color_choice(color):
             if color == "розовый":
                 return "pink"
         else:
-            color = input(color, "не является верным значением. Пожалуйста, повторите попытку:")
+            color = input(color+"не является верным значением. Пожалуйста, повторите попытку:")
 
-def turtle_area():
+
+def turtle_area(n):
+    height = 500 * (3 * n + 1) / (sqrt(3) * (2 * n + 1))
     t.up()
     t.goto(-100, -100)
     t.down()
     t.pensize(3)
     t.left(90)
-    t.fd(500)
+    # up
+    t.fd(height)
+    # t.fd(500)
     t.right(90)
     t.fd(500)
     t.right(90)
-    t.fd(500)
+    # down
+    t.fd(height)
+    # t.fd(500)
     t.right(90)
     t.fd(500)
+    return height
 
 
 def right_fd(angle, side_len, times):
@@ -68,31 +75,37 @@ def right_fd(angle, side_len, times):
         times -= 1
 
 
-def draw_hexagon(x, y, count, color1, color2):
+def draw_hexagon(y_side, color):
+    t.down()
+    t.setheading(-90)
+    t.up()
+    t.fd(y_side)
+    t.down()
+    t.pencolor("black")
+    t.fillcolor(color)
+    t.begin_fill()
+    t.left(120)
+    t.fd(2 * y_side)
+    right_fd(60, 2 * y_side, 6)
+    t.end_fill()
+
+
+def draw_hexagons(x, y, count, color1, color2):
     """
+    ↓ хуйня, а не решение уравнения (c) Плаун
+
     В данной функции 72.17 получена путем решения уравнения, где 500=8x,x=62.5, что равно половине длинны шестиугольника, а сторона шестиугольника=62,5/cos(30)=72,17
     далее функция адаптируется к количеству путем домножения стороны на коэф=4/кол-во шестиугольников
     """
+    x_side = 500 / (2 * count + 1)
+    y_side = x_side / sqrt(3)
     for j in range(0, count):
         t.up()
         t.goto(x, y)
-        t.down()
-        x_side = (72.17 * 4 / count * sqrt(3)) / 2
-        y_side = 72.17 * 4 / count / 2
-        t.setheading(-90)
-        t.up()
-        t.fd(y_side)
-        t.down()
-        t.pencolor("black")
-        t.fillcolor(color1)
-        t.begin_fill()
-        t.left(120)
-        t.fd(72.17 * 4 / count)
-        right_fd(60, 72.17 * 4 / count, 6)
-        t.end_fill()
-        x = x + (125 * (4 / count))
+        draw_hexagon(y_side, color1)
+        x += 2 * x_side
     x = -100
-    y = y - (125 * (4 / count))
+    y -= 4 * y_side
     t.up()
     t.goto(x, y)
     t.down()
@@ -101,54 +114,29 @@ def draw_hexagon(x, y, count, color1, color2):
         if i % 2 == 1:
             for j in range(0, count):
                 t.up()
-                t.goto(x, y + 10 * 4 / count)
-                t.down()
-                x_side = (72.17 * 4 / count * sqrt(3)) / 2
-                y_side = 72.17 * 4 / count / 2
-                t.setheading(-90)
-                t.up()
-                t.fd(y_side)
-                t.down()
-                t.pencolor("black")
-                t.fillcolor(color1)
-                t.begin_fill()
-                t.left(120)
-                t.fd(72.17 * 4 / count)
-                right_fd(60, 72.17 * 4 / count, 6)
-                t.end_fill()
-                x = x + (125 * (4 / count))
+                t.goto(x, y + 2 * y_side)
+                draw_hexagon(y_side, color1)
+                x += 2 * x_side
+            y += 2 * y_side
         else:
             for j in range(0, count):
                 t.up()
-                t.goto(x + 62 * 4 / count, y + 10 * 4 / count)
-                t.down()
-                x_side = (72.17 * 4 / count * sqrt(3)) / 2
-                y_side = 72.17 * 4 / count / 2
-                t.setheading(-90)
-                t.up()
-                t.fd(y_side)
-                t.down()
-                t.pencolor("black")
-                t.fillcolor(color2)
-                t.begin_fill()
-                t.left(120)
-                t.fd(72.17 * 4 / count)
-                right_fd(60, 72.17 * 4 / count, 6)
-                t.end_fill()
-                x = x + (125 * (4 / count))
+                t.goto(x + x_side, y + y_side)
+                draw_hexagon(y_side, color2)
+                x += 2 * x_side
         x = -100
-        y = y - (115 * (4 / count))
+        y -= 4 * y_side
         t.up()
         t.goto(x, y)
         t.down()
 
 
-turtle_area()
 count = get_num_hexagons()
+height = turtle_area(count)
 print("Доступный набор цветов:")
 print(*(color for color in ('красный', 'синий', 'зеленый', 'желтый', 'оранжевый', 'фиолетовый', 'розовый')), sep='\n')
 color1 = get_color_choice(input("Пожалуйста, введите первый цвет:").lower())
 color2 = get_color_choice(input("Пожалуйста, введите второй цвет:").lower())
-draw_hexagon(-100, 397, count, color1, color2)
+draw_hexagons(-100, height-100, count, color1, color2)
 
 t.mainloop()
