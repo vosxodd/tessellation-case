@@ -43,9 +43,8 @@ def get_color_choice(color):
                 return "purple"
             if color == "розовый":
                 return "pink"
-        break
-    else:
-        color = input(color, "не является верным значением. Пожалуйста, повторите попытку:")
+        else:
+            color = input(color, "не является верным значением. Пожалуйста, повторите попытку:")
 
 def turtle_area():
     t.up()
