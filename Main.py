@@ -23,28 +23,44 @@ def get_num_hexagons():
         except ValueError:
             n = input("Оно должно быть от 4 до 20. Пожалуйста, повторите попытку: ")
 
-def get_color_choice(color):
+
+def get_color_choice(n):
     """
     Функция для выбора цвета заливки шестиугольника
     """
-    while True:
-        if color == "красный" or "синий" or "зеленый" or "желтый" or "оранжевый" or "фиолетовый" or "розовый":
-            if color == "красный":
-                return "red"
-            if color == "синий":
-                return "blue"
-            if color == "зеленый":
-                return "green"
-            if color == "желтый":
-                return "yellow"
-            if color == "оранжевый":
-                return "orange"
-            if color == "фиолетовый":
-                return "purple"
-            if color == "розовый":
-                return "pink"
+    if n==1:
+        color=input("Введите первый цвет: ").lower()
+    else:
+        color=input("Введите второй цвет: ").lower()
+    a=0
+    while a==0:
+        if color == "красный":
+            return "red"
+            break
+        elif color == "синий":
+            return "blue"
+            break
+        elif color == "зеленый":
+            return "green"
+            break
+        elif color == "желтый":
+            return "yellow"
+            break
+        elif color == "оранжевый":
+            return "orange"
+            break
+        elif color == "фиолетовый":
+            return "purple"
+            break
+        elif color == "розовый":
+            return "pink"
+            break
         else:
-            color = input(color+"не является верным значением. Пожалуйста, повторите попытку:")
+            color = input(color+" не является верным значением. Пожалуйста, повторите попытку: ").lower()
+
+
+
+            
 
 
 def turtle_area(n):
@@ -129,8 +145,9 @@ count = get_num_hexagons()
 height = turtle_area(count)
 print("Доступный набор цветов:")
 print(*(color for color in ('красный', 'синий', 'зеленый', 'желтый', 'оранжевый', 'фиолетовый', 'розовый')), sep='\n')
-color1 = get_color_choice(input("Пожалуйста, введите первый цвет:").lower())
-color2 = get_color_choice(input("Пожалуйста, введите второй цвет:").lower())
+color1 = get_color_choice(1)
+color2 = get_color_choice(2)
 draw_hexagons(-100, height-100, count, color1, color2)
 
 t.mainloop()
+
