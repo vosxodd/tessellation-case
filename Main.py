@@ -1,7 +1,7 @@
 # Case-study #6
-# Developers:   Aksenov A. (45%),
+# Developers:   Aksenov A. (55%),
 #               Soloveychik D. (60%),
-#               Labuzov A. (%)
+#               Labuzov A. (48%)
 import turtle as t
 from math import sqrt
 
