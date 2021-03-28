@@ -1,5 +1,5 @@
 # Case-study #6
-# Developers:   Aksenov A. (%),
+# Developers:   Aksenov A. (30%),
 #               Soloveychik D. (%),
 #               Labuzov A. (%)
 import turtle as t
